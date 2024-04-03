@@ -25,3 +25,4 @@ Route::get('/benevole/all-annonce', function () { return view('benevole/all-anno
 
 // ________________________organisateur______________
 Route::get('/organisateur/all-annonce', function () { return view('organisateur/all-annonce-organisateur');});
+Route::get('/organisateur/edite-annonce/{id}', function () { return view('organisateur/edite-annonce');});

@@ -51,13 +51,14 @@ class organizateurController extends Controller
             'competance'=> 'required',
         ]);
 
+        $user_id = auth()->user()->id;
         $annonce = new Annonce();
         $annonce->titre = $request->titre;
         $annonce->description = $request->description;
         $annonce->location = $request->location;
         $annonce->date = $request->date;
         $annonce->competance = $request->competance;
-        $annonce->user_id = $request->user_id;
+        $annonce->user_id = $user_id;
         $annonce->type_id = $request->type_id;
 
         $annonce->save();
@@ -97,14 +98,13 @@ class organizateurController extends Controller
         $updateAnnonce->location = $request->location;
         $updateAnnonce->date = $request->date;
         $updateAnnonce->competance = $request->competance;
-        $updateAnnonce->user_id = $request->user_id;
         $updateAnnonce->type_id = $request->type_id;
 
-        // if($updateAnnonce->user_id === auth()->user()->id){
-        // $updateAnnonce->save();
-        // }else{
-        //     return response()->json(['msg'=> 'error auth']);
-        // }
+        if($updateAnnonce->user_id === auth()->user()->id){
+            $updateAnnonce->save();
+         }else{
+                return response()->json(['msg'=> 'error authentification, try again']);
+         }
 
         if($updateAnnonce){
             return response()->json(['msg'=> 'update successfully']);
