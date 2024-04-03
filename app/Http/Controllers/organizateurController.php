@@ -64,7 +64,7 @@ class organizateurController extends Controller
         $annonce->save();
 
         if($annonce){
-            return response()->json(['msg'=> 'added successfully']);
+            return response()->json($annonce);
         }else{
             return response()->json(['msg'=> 'error']);
         }
@@ -128,9 +128,13 @@ class organizateurController extends Controller
     public function deleteAnnonce($id){
         
         $deleteAnnonce = Annonce::findOrFail($id);
-        
-        if($deleteAnnonce){
+        if($deleteAnnonce->user_id === auth()->user()->id){
             $deleteAnnonce->delete();
+         }else{
+                return response()->json(['msg'=> 'error authentification, try again']);
+         }
+        if($deleteAnnonce){
+            
             return response()->json(['msg'=>"deleted"]);
         }
 

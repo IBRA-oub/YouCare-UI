@@ -109,7 +109,8 @@
         </div>
     </div>
     <script src="{{ asset('js/allAnnonceOrganisateur.js') }}"></script>
-    <script src="{{ asset('js/addAnnonce.js') }}"></script>
+    {{-- <script src="{{ asset('js/addAnnonce.js') }}"></script> --}}
+   
     <script src="{{ asset('js/logout.js') }}"></script>
     <script>
 

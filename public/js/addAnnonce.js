@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log(response); 
 
                     alert('Annonce ajouter avec succès');
-                    window.location.href = '/organisateur/all-annonce'; 
+                    // window.location.href = '/organisateur/all-annonce'; 
                     
                     
                 } else {
