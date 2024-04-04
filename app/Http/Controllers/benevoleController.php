@@ -22,7 +22,7 @@ class benevoleController extends Controller
         $annonces = Annonce::all();
         
         if ($annonces->isNotEmpty()) {
-            return response()->json(['msg' => $annonces]);
+            return response()->json( $annonces);
         } else {
             return response()->json(['msg' => 'There is no data']);
         }

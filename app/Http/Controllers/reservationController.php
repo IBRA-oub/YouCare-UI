@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Annonce;
 use Illuminate\Http\Request;
 
 class reservationController extends Controller
@@ -20,21 +21,22 @@ class reservationController extends Controller
    public function addReservation(Request $request){
 
     $request->validate([
-        'user_id'=> 'required',
+        
         'annonce_id'=> 'required',
       
     ]);
    
+    $user_id = auth()->user()->id;
     $resrvation = new Reservation();
     $resrvation->annonce_id = $request->annonce_id;
-    $resrvation->user_id = $request->user_id;
+    $resrvation->user_id = $user_id;
     $resrvation->status = 'pending';
  
 
     $resrvation->save();
 
     if($resrvation){
-        return response()->json(['msg'=> 'added reservation successfully']);
+        return response()->json($resrvation);
     }else{
         return response()->json(['msg'=> 'error']);
     }
@@ -135,9 +137,29 @@ class reservationController extends Controller
     $Reservations = Reservation::where('user_id', $user->id)->get();
     
     if ($Reservations->isNotEmpty()) {
-        return response()->json(['msg' => $Reservations]);
+        return response()->json($Reservations);
     } else {
         return response()->json(['msg' => 'There is no data']);
     }
    }
+
+     /**
+     * @OA\Get(
+     *     path="/api/get-me-reservation-detaills",
+     *     summary="Get detaills annonce for bénévole",
+     *     tags={"Reservations"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function getMeAnnonceDetaills($id){
+       
+        $Annonce = Annonce::findOrFail($id);
+        
+        if ($Annonce) {
+            return response()->json($Annonce);
+        } else {
+            return response()->json(['msg' => 'There is no data']);
+        }
+       }
 }

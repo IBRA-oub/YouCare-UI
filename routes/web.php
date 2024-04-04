@@ -21,6 +21,7 @@ Route::get('/register', function () { return view('auth/register');});
 
 // _____________________benevole____________________
 Route::get('/benevole/all-annonce', function () { return view('benevole/all-annonce-benevole');});
+Route::get('/benevole/reservation', function () { return view('benevole/reservation');});
 
 
 // ________________________organisateur______________
