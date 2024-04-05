@@ -1,4 +1,4 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     let input = "";
 
     function getCookie(name) {
@@ -7,8 +7,10 @@ $(document).ready(function () {
         if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
+    // Récupérer le token JWT à partir du cookie
     var token = getCookie("jwt_token");
     if (!token) {
+        // Si le token n'est pas présent, rediriger vers la page de connexion
         window.location.href = "/login";
         return;
     }
@@ -19,82 +21,139 @@ $(document).ready(function () {
         return;
     }
 
-    var searchInput = $("#search-navbar");
+    // Sélectionner l'élément de recherche
+    var searchInput = document.querySelector('input[name="location"]');
 
-    searchInput.on("input", function (event) {
+    // Ajouter un gestionnaire d'événements pour l'événement "input"
+    searchInput.addEventListener("input", function (event) {
+        // Capturer la valeur de l'input
         input = event.target.value;
+
+        // Appeler la fonction de filtrage des annonces avec la nouvelle valeur
         filterAnnonces(input);
     });
 
+    // Fonction pour filtrer les annonces en fonction de l'input
     function filterAnnonces(input) {
         var formData = new FormData();
         formData.append('filterByLocation', input);
 
-        $.ajax({
-            url: '/api/filter-by-location-type',
-            type: 'POST',
+        fetch('/api/filter-by-location-type', {
+            method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token
             },
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                var annonces = data.annonces;
-                var annonceWrapper = $("#annonce-wrapper");
-                annonceWrapper.empty();
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var annonces = data; // 'data' contient déjà les annonces
+            var annonceWrapper = document.getElementById("annonce-wrapper");
+            annonceWrapper.innerHTML = ""; // Clear previous results
 
-                if (annonces.length > 0) {
-                    $.each(annonces, function (index, annonce) {
-                        var div1 = $("<div>").addClass("div1 bg-white shadow-xl px-8 py-12 sm:px-12 lg:px-8 mb-6 rounded-lg");
-                        var title = $("<h3>").addClass("titre text-3xl text-center font-semibold text-black").text(annonce.titre);
-                        var description = $("<p>").addClass("paragraph font-semibold").text(annonce.description);
-                        var location = $("<p>").addClass("location").html("Location: <strong>" + annonce.location + "</strong>");
-                        var date = $("<p>").addClass("location").html("Date: <strong>" + annonce.date + "</strong>");
-                        var competence = $("<p>").addClass("location").html("Competence: <strong>" + annonce.competance + "</strong>");
-                        var participerButton = $("<button>").text("Participer").addClass("participerBtn");
+            if (annonces.length > 0) {
+                annonces.forEach(function (annonce) {
+                    var div1 = document.createElement("div");
+                    div1.className =
+                        "div1 bg-white shadow-xl px-8 py-12 sm:px-12 lg:px-8 mb-6 rounded-lg";
 
-                        participerButton.on("click", function () {
-                            var participerRequest = $.ajax({
-                                url: "/api/add-reservation",
-                                type: "POST",
-                                headers: {
-                                    "Authorization": "Bearer " + token,
-                                    "Content-Type": "application/json"
-                                },
-                                data: JSON.stringify({ annonce_id: annonce.id }),
-                                success: function (response) {
+                    var title = document.createElement("h3");
+                    title.className =
+                        "titre text-3xl text-center font-semibold text-black";
+                    title.textContent = annonce.titre;
+
+                    var description = document.createElement("p");
+                    description.className = "paragraph font-semibold";
+                    description.textContent = annonce.description;
+
+                    var location = document.createElement("p");
+                    location.className = "location";
+                    location.innerHTML =
+                        "Location: <strong>" +
+                        annonce.location +
+                        "</strong>";
+
+                    var date = document.createElement("p");
+                    date.className = "location";
+                    date.innerHTML =
+                        "Date: <strong>" + annonce.date + "</strong>";
+
+                    var competence = document.createElement("p");
+                    competence.className = "location";
+                    competence.innerHTML =
+                        "Competence: <strong>" +
+                        annonce.competance +
+                        "</strong>";
+
+                    var participerButton = document.createElement("button");
+                    participerButton.textContent = "Participer";
+                    participerButton.className = "participerBtn";
+
+                    participerButton.addEventListener("click", function () {
+                        var participerRequest = new XMLHttpRequest();
+                        participerRequest.open("POST", "/api/add-reservation", true);
+                        participerRequest.setRequestHeader("Authorization", "Bearer " + token);
+                        participerRequest.setRequestHeader("Content-Type", "application/json");
+
+                        participerRequest.onreadystatechange = function () {
+                            if (participerRequest.readyState == 4) {
+                                if (participerRequest.status == 200) {
+                                    var response = JSON.parse(participerRequest.responseText);
                                     console.log(response);
                                     window.location.href = '/benevole/reservation';
-                                },
-                                error: function (xhr, status, error) {
-                                    console.error("Erreur lors de la participation à cette annonce :", status);
+                                } else {
+                                    console.error(
+                                        "Erreur lors de la participation à cette annonce :",
+                                        participerRequest.statusText
+                                    );
                                     alert("Erreur. Veuillez réessayer plus tard.");
                                 }
-                            });
-                        });
+                            }
+                        };
 
-                        var image = $("<img>").attr({
-                            src: "https://tailus.io/sources/blocks/end-image/preview/images/ux-design.svg",
-                            alt: "Illustration",
-                            loading: "lazy",
-                            width: "900",
-                            height: "600"
-                        }).addClass("w-2/3 ml-auto");
+                        var requestBody = JSON.stringify({ annonce_id: annonce.id });
+                        console.log(requestBody);
 
-                        div1.append(title, description, location, date, competence, image, participerButton);
-                        annonceWrapper.append(div1);
+                        participerRequest.send(requestBody);
                     });
-                } else {
-                    var message = $("<p>").text("Il n'y a pas d'annonces disponibles.");
-                    annonceWrapper.append(message);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching data:", error);
+
+                    var image = document.createElement("img");
+                    image.src =
+                        "https://tailus.io/sources/blocks/end-image/preview/images/ux-design.svg";
+                    image.className = "w-2/3 ml-auto";
+                    image.alt = "Illustration";
+                    image.loading = "lazy";
+                    image.width = "900";
+                    image.height = "600";
+
+                    // Ajouter les éléments créés au conteneur principal
+                    div1.appendChild(title);
+                    div1.appendChild(description);
+                    div1.appendChild(location);
+                    div1.appendChild(date);
+                    div1.appendChild(competence);
+                    div1.appendChild(image);
+                    div1.appendChild(participerButton);
+
+                    annonceWrapper.appendChild(div1);
+                });
+            } else {
+                var message = document.createElement("p");
+                message.textContent =
+                    "Il n'y a pas d'annonces disponibles.";
+                annonceWrapper.appendChild(message);
             }
+        })
+        .catch(error => {
+            // console.error('Error fetching data:', error);
         });
     }
 
+    // Appel initial pour afficher toutes les annonces lors du chargement de la page
     filterAnnonces(input);
 });

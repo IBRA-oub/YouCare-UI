@@ -36,5 +36,5 @@ Route::middleware(['auth:api', 'role:bénévole'])->group(function () {
     Route::post('add-reservation',[reservationController::class , 'addReservation']);
     Route::get('get-me-reservation',[reservationController::class , 'getMeReservation']);
     Route::get('get-annonce-detaills/{id}',[reservationController::class , 'getMeAnnonceDetaills']);
+    Route::post('filter-by-location-type',[benevoleController::class , 'filterAnnonce']);
 });
-Route::post('filter-by-location-type',[benevoleController::class , 'filterAnnonce']);

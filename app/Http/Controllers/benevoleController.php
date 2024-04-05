@@ -63,7 +63,7 @@ class benevoleController extends Controller
         $filteredAnnonces = $query->get();
     
         if ($filteredAnnonces) {
-            return response()->json( $filteredAnnonces);
+            return response()->json($filteredAnnonces);
         } else {
             return response()->json(['msg' => 'Il n\'y a pas de données correspondant aux critères de filtrage']);
         }
