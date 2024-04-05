@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (logoutRequest.readyState === XMLHttpRequest.DONE) {
                     if (logoutRequest.status === 200) {
                         document.cookie = "jwt_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         window.location.href = '/login'; 
                     } else {
                         console.error('Erreur lors de la requête de déconnexion :', logoutRequest.statusText);
