@@ -62,7 +62,7 @@ class reservationController extends Controller
         ->get();
     
     if ($pendingReservations->isNotEmpty()) {
-        return response()->json(['msg' => $pendingReservations]);
+        return response()->json( $pendingReservations);
     } else {
         return response()->json(['msg' => 'There is no data']);
     }

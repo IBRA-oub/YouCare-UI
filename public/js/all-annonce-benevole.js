@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    var role = getCookie("role"); 
+
+    if (role !== "bénévole") {
+        window.location.href = "/login"; 
+        return;
+    }
+
     var annonces = new XMLHttpRequest();
     annonces.open("GET", "/api/get-All-annonce-benevole", true);
 
@@ -64,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         participerButton.textContent = "Participer";
                         participerButton.className = "participerBtn";
                         
-                        // console.log(annonce.id);
+                        
                         participerButton.addEventListener("click", function () {
                             var participerRequest = new XMLHttpRequest();
                             participerRequest.open("POST", "/api/add-reservation", true);

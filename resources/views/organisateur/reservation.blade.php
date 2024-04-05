@@ -5,23 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>all-annonce</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/css/app.css')
 
     <link rel="stylesheet" href="{{ asset('assets/style.css')}}">
-    <style>
-        .icon::after{
-        content: '';
-        display: block;
-        position: absolute;
-        border-top: 23px solid transparent;
-        border-bottom: 17px solid transparent;
-        border-left: 12px solid #3182ce;
-        left: 100%;
-        top: 0;
-      }
-        </style>
-  
+
 </head>
 <body>
 
@@ -40,7 +27,7 @@
        <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
            <nav>
                <ul class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
-                   <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="#">annonce</a></li>
+                   <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="/organisateur/all-annonce">annonce</a></li>
                    <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="#">mes reservation</a></li>
                    <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="#">About</a></li>
                </ul>
@@ -60,35 +47,19 @@
 
 
 {{-- navbar-end --}}
-        <form id="editeForm"  class="form bg-white p-6 my-10 relative">
-                    
-            <div class="icon bg-blue-600 text-white w-6 h-6 absolute flex items-center justify-center p-5" style="left:-40px"><i class="fal fa-phone-volume fa-fw text-2xl transform -rotate-45"></i></div>
-            <h3 class="text-2xl text-gray-900 font-semibold">Update annonce!</h3>
-            
-            <div class="flex space-x-5 mt-3">
-                <input type="text" name="titre" id="titre"  placeholder="titre" class="border p-2  w-1/2">
-                <select  name="type_id" id="type"  class="border p-2 w-1/2">
-                    <option value="1">type1</option>
-                    <option value="2">type2</option>
-                    <option value="3">type3</option>
-                    <option value="4">type4</option>
-                </select>
+    <div class="py-16 bg-purple-200">
+      
+   
+        <div class="container m-auto px-6 text-gray-500 md:px-12 xl:px-0">
+            <div id="annonce-wrapper" class="mx-auto grid gap-6 md:w-3/4 lg:w-full lg:grid-cols-3 ">
+               
             </div>
-            <div class="flex space-x-5 mt-3">
-                <input type="text" name="location" id="location"  placeholder="location" class="border p-2  w-1/2">
-                <input type="date" name="date" id="date"  placeholder="date" class="border p-2 w-1/2">
-            </div>
-
-            <input type="text" name="description" id="description" placeholder="description" class="border p-2 w-full mt-5"> <br>
-            <input type="text" name="competance" id="competance"  placeholder="creative, bak sahbi" class="border p-2 w-full mt-5">
-           
-
-            <button type="submit"  class="w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3">Update</button>
-
-        </form>
+        </div>
+    </div>
+    <script src="{{ asset('js/me-reservation-organisateur.js') }}"></script>
+  
+   
     <script src="{{ asset('js/logout.js') }}"></script>
-    <script src="{{ asset('js/editeAnnonce.js') }}"></script>
-    
     <script>
 
       // burger-menu
@@ -107,7 +78,7 @@
             }
          });
 
-         // pop up modal
+    
 
     </script>
 </body>

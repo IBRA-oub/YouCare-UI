@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    var role = getCookie("role"); 
+    console.log(role);
+    if (role !== "organisateur") {
+        window.location.href = "/login"; 
+        return;
+    }
+
     var annoncesWrapper = document.getElementById("annonce-wrapper");
 
     function loadAnnonces() {

@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    var role = getCookie("role"); 
+
+    if (role !== "bénévole") {
+        window.location.href = "/login"; 
+        return;
+    }
+
     var reservationRequest = new XMLHttpRequest();
     reservationRequest.open("GET", "/api/get-me-reservation", true);
 
@@ -104,4 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     reservationRequest.send();
+
 });
+
+
+
+

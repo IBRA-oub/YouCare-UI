@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Annonce;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class organizateurController extends Controller
@@ -140,6 +141,27 @@ class organizateurController extends Controller
 
         return response()->json(['msg'=>"error"]);
         
+    }
+
+     // _____________________User info_______________
+     /**
+     * @OA\Get(
+     *     path="/api/get-user-info",
+     *     summary="Get user information",
+     *     tags={"Annonces"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function userInfo($id){
+        
+        $user = User::findOrFail($id);
+        
+        if ($user) {
+            return response()->json( $user);
+        } else {
+            return response()->json(['msg' => 'There is no data']);
+        }
     }
 
 }

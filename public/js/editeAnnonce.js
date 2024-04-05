@@ -2,24 +2,32 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('editeForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        
         var token = getTokenFromCookie('jwt_token');
+        if (!token) {
+            window.location.href = "/login"; 
+            return;
+        }
+        var role = getTokenFromCookie("role"); 
+        console.log(role);
+
+        if (role !== "organisateur") {
+            window.location.href = "/login"; 
+            return;
+        }
         
         if (token) {
             var formData = new FormData(this);
 
             var annonceId = window.location.pathname.split('/').pop();
-
             var updateUrl = '/api/update-annonce/' + annonceId; 
-
 
             var updateAnnonce = new XMLHttpRequest();
             updateAnnonce.open('PUT', updateUrl, true);
 
             updateAnnonce.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             updateAnnonce.setRequestHeader('Authorization', 'Bearer ' + token);
+            updateAnnonce.setRequestHeader('Content-Type', 'application/json');
 
-            updateAnnonce.setRequestHeader('Content-Type', 'application/json'); // Définir le type de contenu
             updateAnnonce.onreadystatechange = function () {
                 if (updateAnnonce.readyState === XMLHttpRequest.DONE) {
                     if (updateAnnonce.status === 200) {
@@ -34,15 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             };
 
-            // Convertir les données FormData en format JSON
             var jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
-
-            // Envoyer les données JSON à l'aide de la requête XMLHttpRequest
             updateAnnonce.send(jsonData);
         }
     });
 });
-
 
 function getTokenFromCookie(cookieName) {
     var name = cookieName + "=";

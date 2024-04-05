@@ -7,6 +7,8 @@
     <title>all-annonce</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('assets/style.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 <body>
@@ -25,6 +27,7 @@
        
        <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
           <nav>
+            
              <ul class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
                 <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="#">annonce</a></li>
                 <li><a class="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2" href="/benevole/reservation">mes reservation</a></li>
@@ -32,9 +35,22 @@
              </ul>
           </nav>
        </div>
-       
+     {{-- serach --}}
+<div class="relative mr-3 md:mr-0">
+   <form id="search-form">
+       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+           <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+           </svg>
+       </div>
+       <input type="text" id="search-navbar" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2" placeholder="Search...">
+   </form>
+</div>
+{{-- search-end --}}
        <div class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
+         
           <div class="auth flex items-center w-full md:w-full">
+            
             <form action="" id="logout-form">
                <button type="submit" class="bg-blue-600 text-gray-200 p-2 rounded hover:bg-blue-500 hover:text-gray-100">log out</button>
            </form>    
@@ -54,6 +70,7 @@
     </div>
    
     <script src="{{ asset('js/all-annonce-benevole.js')}}"></script>
+    <script src="{{ asset('js/search.js')}}"></script>
     <script src="{{ asset('js/logout.js') }}"></script>
 </body>
 </html>

@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     var user = response.user;
                     var role = user.role;
+
+                    document.cookie = "role=" + role ;
                     
                     if (role === 'organisateur') {
                         window.location.href = '/organisateur/all-annonce'; 

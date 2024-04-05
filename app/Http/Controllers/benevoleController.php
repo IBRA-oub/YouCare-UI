@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Annonce;
 
@@ -28,6 +29,8 @@ class benevoleController extends Controller
         }
     }
 
+    
+
     // _____________________filter by location annonce_______________
     
       /**
@@ -49,7 +52,7 @@ class benevoleController extends Controller
     
         
         if ($request->has('filterByLocation')) {
-            $query->where('location', $request->filterByLocation);
+            $query->where('location', 'LIKE' ,'%' . $request->filterByLocation . '%');
         }
     
        
@@ -59,8 +62,8 @@ class benevoleController extends Controller
     
         $filteredAnnonces = $query->get();
     
-        if ($filteredAnnonces->isNotEmpty()) {
-            return response()->json(['annonces' => $filteredAnnonces]);
+        if ($filteredAnnonces) {
+            return response()->json( $filteredAnnonces);
         } else {
             return response()->json(['msg' => 'Il n\'y a pas de données correspondant aux critères de filtrage']);
         }

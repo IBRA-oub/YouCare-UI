@@ -21,6 +21,7 @@ Route::middleware(['auth:api', 'role:organisateur'])->group(function () {
     Route::post('create-annonce',[organizateurController::class , 'addAnnonce']);
     Route::put('update-annonce/{id}',[organizateurController::class , 'updateAnnonce']);
     Route::delete('delete-annonce/{id}',[organizateurController::class , 'deleteAnnonce']);
+    Route::get('get-user-info/{id}',[organizateurController::class , 'userInfo']);
     
     Route::get('get-pending-reservation',[reservationController::class , 'pendingReservation']);
     Route::put('accept-reservation/{id}',[reservationController::class , 'acceptReservation']);
