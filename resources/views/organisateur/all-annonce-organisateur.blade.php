@@ -66,19 +66,19 @@
              <p id="addPubliciter" class="text-xl font-bold text-center">ajouter Annonce</p>
              <label id="titreAdd" for="titre" class="block text-black text-sm font-bold mb-2">titre</label>
              <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                 name="titre" id="titre"  placeholder="ghj"><br>
+                 name="titre" id="titre"  placeholder="titre"><br>
              <label id="description" for="description" class="block text-black text-sm font-bold mb-2">description</label>
              <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                 name="description" id="description"  placeholder="ghj"><br>
+                 name="description" id="description"  placeholder="description"><br>
              <label id="contenu" for="location" class="block text-black text-sm font-bold mb-2">location</label>
              <input type="text" class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
                  name="location" id="location"  placeholder="safi"><br>
              <label id="datePubliciter" for="date" class="block text-black text-sm font-bold mb-2">date </label>
              <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="date"
-                 name="date" id="date"  placeholder="ghj"><br>
+                 name="date" id="date" ><br>
                  <label id="datePubliciter" for="type" class="block text-black text-sm font-bold mb-2">type </label>
                  <select class=" border rounded w-full py-2 px-3 text-grey-darker" type="date"
-                     name="type_id" id="type"  placeholder="ghj">
+                     name="type_id" id="type">
                     <option value="1">type1</option>
                     <option value="2">type2</option>
                     <option value="3">type3</option>

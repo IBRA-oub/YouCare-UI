@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
-    // Récupérer le token JWT à partir du cookie
+    
     var token = getCookie("jwt_token");
     if (!token) {
-        // Si le token n'est pas présent, rediriger vers la page de connexion
+        
         window.location.href = "/login";
         return;
     }
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         image.width = "900";
                         image.height = "600";
 
-                        // Ajouter les éléments créés au conteneur principal
+                        
                         div1.appendChild(title);
                         div1.appendChild(description);
                         div1.appendChild(location);

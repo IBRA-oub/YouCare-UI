@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
-    // Récupérer le token JWT à partir du cookie
+    
     var token = getCookie("jwt_token");
     if (!token) {
-        // Si le token n'est pas présent, rediriger vers la page de connexion
+        
         window.location.href = "/login";
         return;
     }
@@ -21,19 +21,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Sélectionner l'élément de recherche
+   
     var searchInput = document.querySelector('input[name="location"]');
 
-    // Ajouter un gestionnaire d'événements pour l'événement "input"
+    
     searchInput.addEventListener("input", function (event) {
-        // Capturer la valeur de l'input
+        
         input = event.target.value;
 
-        // Appeler la fonction de filtrage des annonces avec la nouvelle valeur
+       
         filterAnnonces(input);
     });
 
-    // Fonction pour filtrer les annonces en fonction de l'input
+    
     function filterAnnonces(input) {
         var formData = new FormData();
         formData.append('filterByLocation', input);
@@ -52,9 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-            var annonces = data; // 'data' contient déjà les annonces
+            var annonces = data; 
             var annonceWrapper = document.getElementById("annonce-wrapper");
-            annonceWrapper.innerHTML = ""; // Clear previous results
+            annonceWrapper.innerHTML = ""; 
 
             if (annonces.length > 0) {
                 annonces.forEach(function (annonce) {
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     image.width = "900";
                     image.height = "600";
 
-                    // Ajouter les éléments créés au conteneur principal
+                    
                     div1.appendChild(title);
                     div1.appendChild(description);
                     div1.appendChild(location);
@@ -150,10 +150,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
         .catch(error => {
-            // console.error('Error fetching data:', error);
+           
         });
     }
 
-    // Appel initial pour afficher toutes les annonces lors du chargement de la page
+    
     filterAnnonces(input);
 });

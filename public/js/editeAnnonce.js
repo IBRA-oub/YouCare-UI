@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var token = getTokenFromCookie('jwt_token');
+    if (!token) {
+        window.location.href = "/login"; 
+        return;
+    }
     document.getElementById('editeForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        var token = getTokenFromCookie('jwt_token');
-        if (!token) {
-            window.location.href = "/login"; 
-            return;
-        }
+       
         var role = getTokenFromCookie("role"); 
         console.log(role);
 

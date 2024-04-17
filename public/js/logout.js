@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         logoutForm.addEventListener('submit', function (event) {
             event.preventDefault(); 
             
-            // Récupérer le token JWT depuis les cookies
+           
             var token = document.cookie.split('; ')
                 .find(row => row.startsWith('jwt_token='))
                 .split('=')[1];

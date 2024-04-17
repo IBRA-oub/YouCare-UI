@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
-    // Récupérer le token JWT à partir du cookie
+    
     var token = getCookie("jwt_token");
     if (!token) {
-        // Si le token n'est pas présent, rediriger vers la page de connexion
+       
         window.location.href = "/login";
         return;
     }
@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                 refusedRequest.responseText
                             );
                             console.log(response);
-                            div1.remove(); // Supprime l'élément HTML correspondant à l'annonce
+                            div1.remove(); 
                         } else {
-                            // Gestion des erreurs lors de la suppression
+                           
                             console.error(
                                 "Erreur lors de la suppression de l'annonce :",
                                 refusedRequest.statusText
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         image.width = "900";
         image.height = "600";
 
-        // Ajouter les éléments créés au conteneur principal
+        
         div1.appendChild(title);
         div1.appendChild(description);
         div1.appendChild(location);
@@ -232,5 +232,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// ghjklmlkjhghjklkjhg
+
 
